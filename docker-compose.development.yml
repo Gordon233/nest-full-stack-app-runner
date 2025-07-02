@@ -12,6 +12,8 @@ services:
       - /usr/src/app/node_modules
     networks:
       - app-network
+    depends_on:
+      - pgsql
 
   web:
     build:
@@ -30,6 +32,22 @@ services:
     networks:
       - app-network
 
+  pgsql:
+    image: postgres:latest
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nest-course
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  pgdata:
