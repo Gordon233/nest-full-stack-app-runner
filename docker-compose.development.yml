@@ -9,7 +9,6 @@ services:
       - NODE_ENV=development
     volumes:
       - ./api:/usr/src/app
-      - /usr/src/app/node_modules
     networks:
       - app-network
     depends_on:
@@ -26,7 +25,6 @@ services:
       - PORT=5173
     volumes:
       - ./web:/app
-      - /app/node_modules
     depends_on:
       - api
     networks:

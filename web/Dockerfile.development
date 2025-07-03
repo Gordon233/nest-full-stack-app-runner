@@ -13,8 +13,12 @@ RUN npm install
 # Copy the rest of the application files
 COPY . .
 
+# Create entrypoint script for auto-installing dependencies in root directory
+RUN echo -e '#!/bin/sh\necho "🔍 Checking node_modules..."\ncd /app\nif [ ! -d "node_modules" ] || [ ! "$(ls -A node_modules 2>/dev/null)" ]; then\n  echo "📦 Installing dependencies..."\n  npm install\n  echo "✅ Dependencies installed"\nelse\n  echo "✅ Dependencies already exist"\nfi\necho "🚀 Starting development server..."\nexec "$@"' > /entrypoint.sh && chmod +x /entrypoint.sh
+
 # Expose the application port
 EXPOSE 5173
 
-# Command to run the application in development mode with hot reload
+# Set entrypoint and default command
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["npm", "run", "dev"] 
