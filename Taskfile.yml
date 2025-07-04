@@ -1,0 +1,37 @@
+version: '3'
+
+vars:
+  COMPOSE_FILE: docker-compose.development.yml
+
+tasks:
+  dev-rebuild:
+    desc: Rebuild and restart development environment (the three commands you run frequently)
+    cmds:
+      - docker compose -f {{.COMPOSE_FILE}} down
+      - docker compose -f {{.COMPOSE_FILE}} build --no-cache
+      - docker compose -f {{.COMPOSE_FILE}} up
+
+  dev-up:
+    desc: Start development environment
+    cmds:
+      - docker compose -f {{.COMPOSE_FILE}} up
+
+  dev-up-d:
+    desc: Start development environment in detached mode
+    cmds:
+      - docker compose -f {{.COMPOSE_FILE}} up -d
+
+  dev-down:
+    desc: Stop development environment
+    cmds:
+      - docker compose -f {{.COMPOSE_FILE}} down
+
+  dev-restart:
+    desc: Restart development environment (without rebuild)
+    cmds:
+      - docker compose -f {{.COMPOSE_FILE}} restart
+
+  dev-logs:
+    desc: View logs
+    cmds:
+      - docker compose -f {{.COMPOSE_FILE}} logs -f
