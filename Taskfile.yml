@@ -2,6 +2,7 @@ version: '3'
 
 vars:
   COMPOSE_FILE: docker-compose.development.yml
+  container_name: api
 
 tasks:
   dev-rebuild:
@@ -35,3 +36,8 @@ tasks:
     desc: View logs
     cmds:
       - docker compose -f {{.COMPOSE_FILE}} logs -f
+
+  dev-cmd:
+    desc: Run a command in the development environment
+    cmds:
+      - docker compose -f {{.COMPOSE_FILE}} exec {{.container_name}} {{.CLI_ARGS}}
