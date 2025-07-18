@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { IamModule } from './iam/iam.module';
+import { NestModule } from './g/nest/nest.module';
+import { TodosModule } from './todos/todos.module';
 import * as Joi from 'joi';
 import appConfig from './config/app.config';
 
@@ -38,6 +40,8 @@ import appConfig from './config/app.config';
     CoffeesModule,
     UsersModule,
     IamModule,
+    NestModule,
+    TodosModule,
   ],
   controllers: [AppController],
   providers: [AppService],
