@@ -1,5 +1,6 @@
 import logoDark from "./logo-dark.svg";
 import logoLight from "./logo-light.svg";
+import { Link } from "react-router";
 
 export function Welcome() {
   return (
@@ -25,17 +26,27 @@ export function Welcome() {
               What&apos;s next?
             </p>
             <ul>
-              {resources.map(({ href, text, icon }) => (
+              {resources.map(({ href, text, icon, isExternal }) => (
                 <li key={href}>
-                  <a
-                    className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
-                    href={href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {icon}
-                    {text}
-                  </a>
+                  {isExternal ? (
+                    <a
+                      className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {icon}
+                      {text}
+                    </a>
+                  ) : (
+                    <Link
+                      className="group flex items-center gap-3 self-stretch p-3 leading-normal text-blue-700 hover:underline dark:text-blue-500"
+                      to={href}
+                    >
+                      {icon}
+                      {text}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -48,8 +59,28 @@ export function Welcome() {
 
 const resources = [
   {
+    href: "/button-showcase",
+    text: "Button Showcase",
+    isExternal: false,
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300"
+      >
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" strokeWidth="1.5"/>
+        <circle cx="9" cy="9" r="2" strokeWidth="1.5"/>
+        <path d="M21 15l-3.086-3.086a2 2 0 00-2.828 0L6 21" strokeWidth="1.5"/>
+      </svg>
+    ),
+  },
+  {
     href: "https://reactrouter.com/docs",
     text: "React Router Docs",
+    isExternal: true,
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +101,7 @@ const resources = [
   {
     href: "https://rmx.as/discord",
     text: "Join Discord",
+    isExternal: true,
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
