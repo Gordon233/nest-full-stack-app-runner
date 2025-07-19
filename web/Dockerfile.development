@@ -2,10 +2,7 @@
 FROM node:20-alpine
 
 # Install Java (required for OpenAPI Generator CLI)
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jre-headless && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache openjdk17-jre-headless
 
 # Set the working directory inside the container
 WORKDIR /app
