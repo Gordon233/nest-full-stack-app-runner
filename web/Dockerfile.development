@@ -13,6 +13,9 @@ COPY package*.json ./
 # Install the application dependencies (including dev dependencies)
 RUN npm install
 
+# Install OpenAPI Generator CLI globally
+RUN npm install -g @openapitools/openapi-generator-cli
+
 # Copy the rest of the application files
 COPY . .
 
