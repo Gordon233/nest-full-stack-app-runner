@@ -1,6 +1,12 @@
 # Use the official Node.js image as the base image
 FROM node:20
 
+# Install Java (required for OpenAPI Generator CLI)
+RUN apt-get update && \
+    apt-get install -y openjdk-17-jre-headless && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
@@ -12,6 +18,9 @@ RUN npm install
 
 # Install Nest CLI globally
 RUN npm install -g @nestjs/cli
+
+# Install OpenAPI Generator CLI globally
+RUN npm install -g @openapitools/openapi-generator-cli
 
 # Copy the rest of the application files
 COPY . .
