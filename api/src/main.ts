@@ -5,6 +5,15 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // 启用 CORS
+  app.enableCors({
+    origin: ['http://localhost:5173'], // 允许的前端域名
+    methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // 如果需要发送 cookies 或认证信息
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
